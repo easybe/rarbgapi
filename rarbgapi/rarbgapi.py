@@ -137,10 +137,13 @@ def request(func):
             except NoResultsException:
                 return []
             except TokenExpireException:
-                resp = self._get_token()
-                content = resp.json()
-                self._token = content['token']
-                self._log.debug('token=%s', self._token)
+                try:
+                    resp = self._get_token()
+                    content = resp.json()
+                    self._token = content['token']
+                    self._log.debug('token=%s', self._token)
+                except:  # pylint: disable=broad-except
+                    pass
             except Exception as exp:  # pylint: disable=broad-except
                 self._log.exception('Unexpected exceptin %s', exp)
                 retries -= 1
