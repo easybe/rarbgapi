@@ -145,7 +145,7 @@ def request(func):
                 except:  # pylint: disable=broad-except
                     pass
             except Exception as exp:  # pylint: disable=broad-except
-                self._log.exception('Unexpected exceptin %s', exp)
+                self._log.exception('Unexpected exception %s', exp)
                 retries -= 1
                 if not retries:
                     raise
