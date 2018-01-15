@@ -130,7 +130,7 @@ def request(func):
         max_retries = retries = self._options['retries']
         while retries > 0:
             try:
-                backoff = 2**(max_retries - retries)
+                backoff = 2**(max_retries - retries + 1)
                 if not self._bucket.acquire(1, timeout=2):
                     raise ValueError('accquire token timeout')
 
