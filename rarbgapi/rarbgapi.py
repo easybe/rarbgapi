@@ -14,6 +14,10 @@ class NoResultsException(Exception):
     pass
 
 
+class TooManyRequestsException(Exception):
+    pass
+
+
 # pylint: disable=too-many-instance-attributes,too-few-public-methods
 class Torrent(object):
     '''
@@ -63,6 +67,8 @@ def json_hook(dct):
         raise TokenExpireException('Token expired')
     if error_code == 20:
         raise NoResultsException('No results found')
+    if error_code == 5:
+        raise TooManyRequestsException('Too many requests')
     if 'download' in dct:
         return Torrent(dct)
     return dct
